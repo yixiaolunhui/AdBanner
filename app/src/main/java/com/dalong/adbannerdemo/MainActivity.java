@@ -2,55 +2,78 @@ package com.dalong.adbannerdemo;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.dalong.adbanner.AdBannerView;
 import com.dalong.adbanner.AdOnItemClickListener;
 import com.dalong.adbanner.AdViewHolderCreater;
+import com.dalong.adbanner.transformer.AdAlphaPageTransformer;
+import com.dalong.adbanner.transformer.AdBasePageTransformer;
+import com.dalong.adbanner.transformer.AdNonPageTransformer;
+import com.dalong.adbanner.transformer.AdRotateDownPageTransformer;
+import com.dalong.adbanner.transformer.AdRotateUpPageTransformer;
+import com.dalong.adbanner.transformer.AdRotateYTransformer;
+import com.dalong.adbanner.transformer.AdScaleInTransformer;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class MainActivity extends Activity implements AdOnItemClickListener {
+public class MainActivity extends AppCompatActivity implements AdOnItemClickListener, AdapterView.OnItemClickListener {
 
-    private AdBannerView mAdBannerView,mAdBannerView2,mAdBannerView3,mAdBannerView4,mAdBannerView5,mAdBannerView6;
+    private AdBannerView mAdBannerView;
 
+    private List<String> transformerList = new ArrayList<String>();
     private String[] images =
-            {"http://www.pp3.cn/uploads/201602/20160219003.jpg",
-            "http://img05.tooopen.com/images/20140524/sy_61761371996.jpg",
-            "http://cdn.duitang.com/uploads/item/201206/11/20120611174127_hzFtA.jpeg",
-            "http://e.hiphotos.baidu.com/zhidao/pic/item/cefc1e178a82b9014e150b23718da9773912ef62.jpg",
-            "http://img.61gequ.com/allimg/160513/122016-160513155617.jpg",
-            "http://dl.bizhi.sogou.com/images/2012/03/26/65118.jpg"
+            {"http://img4.imgtn.bdimg.com/it/u=3990828539,4061622243&fm=21&gp=0.jpg",
+            "http://www.6188.com/upload_6188s/flashAll/s800/20130716/1373936192eF9wjM.jpg",
+            "http://d.3987.com/xingganmeinv_140814/007.jpg",
+            "http://img1d.xgo-img.com.cn/pics/1717/1716154.jpg",
+            "http://img1c.xgo-img.com.cn/pics/1545/a1544728.jpg",
+            "http://k.zol-img.com.cn/ideapad/5039/a5038432_s.jpg"
+    };
+    private String[] transformers={
+            "RotateDown",
+            "RotateUp",
+            "RotateY",
+            "Standard",
+            "Alpha",
+            "ScaleIn",
+            "RotateDown_Alpha",
+            "RotateDown_Alpha_ScaleIn",
+            "ScaleIn_Alpha"
     };
     private List<String> networkImages;
+    private ListView listView;
+    private ArrayAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+        setContentView(R.layout.activity_main);
         initView();
+        setData();
     }
+
 
     private void initView() {
-        mAdBannerView=(AdBannerView)findViewById(R.id.adbannerview);
-        mAdBannerView2=(AdBannerView)findViewById(R.id.adbannerview2);
-        mAdBannerView3=(AdBannerView)findViewById(R.id.adbannerview3);
-        mAdBannerView4=(AdBannerView)findViewById(R.id.adbannerview4);
-        mAdBannerView5=(AdBannerView)findViewById(R.id.adbannerview5);
-        mAdBannerView6=(AdBannerView)findViewById(R.id.adbannerview6);
         networkImages= Arrays.asList(images);
-        setData(mAdBannerView);
-        setData(mAdBannerView2);
-        setData(mAdBannerView3);
-        setData(mAdBannerView4);
-        setData(mAdBannerView5);
-        setData(mAdBannerView6);
+        transformerList= Arrays.asList(transformers);
+        mAdBannerView=(AdBannerView)findViewById(R.id.adbannerview);
+        listView=(ListView)findViewById(R.id.listView);
+        adapter= new ArrayAdapter(this,R.layout.adapter_transformer,transformerList);
+        listView.setAdapter(adapter);
+        listView.setOnItemClickListener(this);
+
     }
 
-    public void setData(AdBannerView view ){
-        view.setPageDatas(new AdViewHolderCreater<ImageHolderView>() {
+    public void setData(){
+        mAdBannerView.setPageDatas(new AdViewHolderCreater<ImageHolderView>() {
             @Override
             public ImageHolderView createHolder() {
                 return new ImageHolderView();
@@ -58,6 +81,8 @@ public class MainActivity extends Activity implements AdOnItemClickListener {
         },networkImages).setPageMargin(40).setOffscreenPageLimit(networkImages.size())
                 .setPageIndicator(new int[]{R.mipmap.ic_page_indicator, R.mipmap.ic_page_indicator_focused})
                 .setOnItemClickListener(this);
+
+
     }
 
     @Override
@@ -65,11 +90,6 @@ public class MainActivity extends Activity implements AdOnItemClickListener {
         super.onResume();
         //开始自动翻页
         mAdBannerView.startTurning(3000);
-        mAdBannerView2.startTurning(3000);
-        mAdBannerView3.startTurning(3000);
-        mAdBannerView4.startTurning(3000);
-        mAdBannerView5.startTurning(3000);
-        mAdBannerView6.startTurning(3000);
     }
 
     @Override
@@ -77,15 +97,44 @@ public class MainActivity extends Activity implements AdOnItemClickListener {
         super.onPause();
         //停止翻页
         mAdBannerView.stopTurning();
-        mAdBannerView2.stopTurning();
-        mAdBannerView3.stopTurning();
-        mAdBannerView4.stopTurning();
-        mAdBannerView5.stopTurning();
-        mAdBannerView6.stopTurning();
     }
 
     @Override
     public void onItemClick(int position) {
         Toast.makeText(this,"点击了第"+position+"个",Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        switch (i){
+            case 0:
+                mAdBannerView.setPageTransformer(new AdRotateDownPageTransformer());
+                break;
+            case 1:
+                mAdBannerView.setPageTransformer(new AdRotateUpPageTransformer());
+                break;
+            case 2:
+                mAdBannerView.setPageTransformer(new AdRotateYTransformer());
+                break;
+            case 3:
+                mAdBannerView.setPageTransformer(AdNonPageTransformer.INSTANCE);
+                break;
+            case 4:
+                mAdBannerView.setPageTransformer(new AdAlphaPageTransformer());
+                break;
+            case 5:
+                mAdBannerView.setPageTransformer(new AdScaleInTransformer());
+                break;
+            case 6:
+                mAdBannerView.setPageTransformer(new AdRotateDownPageTransformer(new AdAlphaPageTransformer()));
+                break;
+            case 7:
+                mAdBannerView.setPageTransformer(new AdRotateDownPageTransformer(new AdAlphaPageTransformer(new AdScaleInTransformer())));
+                break;
+            case 8:
+                mAdBannerView.setPageTransformer(new AdScaleInTransformer(new AdAlphaPageTransformer()));
+                break;
+        }
+
     }
 }

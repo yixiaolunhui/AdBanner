@@ -11,43 +11,11 @@
         android:id="@+id/adbannerview"
         app:transformer="Alpha"
         app:canLoop="true"
-        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:layout_height="200dp"/>
+        android:layout_height="150dp"/>
 
-    <com.dalong.adbanner.AdBannerView
-        android:id="@+id/adbannerview2"
-        app:transformer="RotateDown"
-        app:canLoop="true"
-        android:layout_marginTop="10dp"
+    <ListView
+        android:id="@+id/listView"
         android:layout_width="match_parent"
-        android:layout_height="200dp"/>
-    <com.dalong.adbanner.AdBannerView
-        android:id="@+id/adbannerview3"
-        app:transformer="RotateUp"
-        app:canLoop="true"
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"/>
-    <com.dalong.adbanner.AdBannerView
-        android:id="@+id/adbannerview4"
-        app:transformer="RotateY"
-        app:canLoop="true"
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"/>
-    <com.dalong.adbanner.AdBannerView
-        android:id="@+id/adbannerview5"
-        app:transformer="Standard"
-        app:canLoop="true"
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"/>
-    <com.dalong.adbanner.AdBannerView
-        android:id="@+id/adbannerview6"
-        app:transformer="RotateDown_Alpha_ScaleIn"
-        app:canLoop="true"
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"/>
+        android:layout_height="match_parent"/>
 </LinearLayout>
