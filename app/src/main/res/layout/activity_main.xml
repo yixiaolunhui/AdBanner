@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.dalong.adbannerdemo.MainActivity">
+
+    <com.dalong.adbanner.AdBannerView
+        android:id="@+id/adbannerview"
+        app:transformer="Alpha"
+        app:canLoop="true"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"/>
+
+    <com.dalong.adbanner.AdBannerView
+        android:id="@+id/adbannerview2"
+        app:transformer="RotateDown"
+        app:canLoop="true"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"/>
+    <com.dalong.adbanner.AdBannerView
+        android:id="@+id/adbannerview3"
+        app:transformer="RotateUp"
+        app:canLoop="true"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"/>
+    <com.dalong.adbanner.AdBannerView
+        android:id="@+id/adbannerview4"
+        app:transformer="RotateY"
+        app:canLoop="true"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"/>
+    <com.dalong.adbanner.AdBannerView
+        android:id="@+id/adbannerview5"
+        app:transformer="Standard"
+        app:canLoop="true"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"/>
+    <com.dalong.adbanner.AdBannerView
+        android:id="@+id/adbannerview6"
+        app:transformer="RotateDown_Alpha_ScaleIn"
+        app:canLoop="true"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"/>
+</LinearLayout>

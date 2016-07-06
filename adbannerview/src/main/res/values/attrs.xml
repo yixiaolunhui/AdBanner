@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="AdBannerView">
+        <attr name="canLoop" format="boolean"/>
+        <attr name="autoTurningTime" format="integer"/>
+
+        <attr name="transformer">
+            <enum name="RotateDown" value="0"/>
+            <enum name="RotateUp" value="1"/>
+            <enum name="RotateY" value="2"/>
+            <enum name="Standard" value="3"/>
+            <enum name="Alpha" value="4"/>
+            <enum name="ScaleIn" value="5"/>
+            <enum name="RotateDown_Alpha" value="6"/>
+            <enum name="RotateDown_Alpha_ScaleIn" value="7"/>
+        </attr>
+
+    </declare-styleable>
+</resources>
