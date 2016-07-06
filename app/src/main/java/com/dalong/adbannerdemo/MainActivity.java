@@ -1,6 +1,5 @@
 package com.dalong.adbannerdemo;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -13,7 +12,6 @@ import com.dalong.adbanner.AdBannerView;
 import com.dalong.adbanner.AdOnItemClickListener;
 import com.dalong.adbanner.AdViewHolderCreater;
 import com.dalong.adbanner.transformer.AdAlphaPageTransformer;
-import com.dalong.adbanner.transformer.AdBasePageTransformer;
 import com.dalong.adbanner.transformer.AdNonPageTransformer;
 import com.dalong.adbanner.transformer.AdRotateDownPageTransformer;
 import com.dalong.adbanner.transformer.AdRotateUpPageTransformer;
