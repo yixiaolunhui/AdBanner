@@ -3,6 +3,7 @@ package com.dalong.adbannerdemo;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.dalong.adbanner.Holder;
@@ -26,7 +27,6 @@ public class ImageHolderView  implements Holder<String> {
 
     @Override
     public void UpdateUI(Context context, int position, String data) {
-        imageView.setImageResource(R.drawable.ic_default_adimage);
         ImageLoader.getInstance().displayImage(data,imageView,getOptions());
     }
 
@@ -34,6 +34,7 @@ public class ImageHolderView  implements Holder<String> {
         DisplayImageOptions options = new DisplayImageOptions.Builder()
                 .cacheInMemory(true)
                 .cacheOnDisk(true)
+                .showImageOnLoading(R.drawable.ic_default_adimage)
                 .considerExifParams(true)
                 .imageScaleType(ImageScaleType.IN_SAMPLE_POWER_OF_2)// 设置图片以如何的编码方式显示
                 .bitmapConfig(Bitmap.Config.RGB_565)// 设置图片的解码类型
