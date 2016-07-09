@@ -15,5 +15,7 @@
             <enum name="RotateDown_Alpha_ScaleIn" value="7"/>
         </attr>
 
+        <attr name="displayScale" format="float"/>
+
     </declare-styleable>
 </resources>

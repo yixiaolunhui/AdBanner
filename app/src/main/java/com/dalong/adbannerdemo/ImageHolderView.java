@@ -2,6 +2,7 @@ package com.dalong.adbannerdemo;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -12,16 +13,19 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 
 /**
+ *
  * Created by zhouweilong on 16/7/6.
  */
 
 public class ImageHolderView  implements Holder<String> {
+
     private ImageView imageView;
+
     @Override
     public View createView(Context context) {
-        //你可以通过layout文件来创建，也可以像我一样用代码创建，不一定是Image，任何控件都可以进行翻页
-        imageView = new ImageView(context);
-        return imageView;
+        View  view= LayoutInflater.from(context).inflate(R.layout.ad_item,null);
+        imageView = (ImageView) view.findViewById(R.id.ad_img);
+        return view;
     }
 
     @Override

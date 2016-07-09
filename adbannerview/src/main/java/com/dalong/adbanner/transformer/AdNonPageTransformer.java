@@ -4,6 +4,7 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 
 /**
+ * 没有动画的
  * Created by zhy on 16/5/7.
  */
 public class AdNonPageTransformer implements ViewPager.PageTransformer {

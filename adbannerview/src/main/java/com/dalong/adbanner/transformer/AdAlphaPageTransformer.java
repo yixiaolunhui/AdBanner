@@ -5,21 +5,29 @@ import android.os.Build;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 /**
- *
+ * 通明度动画
  * Created by zwl on 16/7/6.
  */
 public class AdAlphaPageTransformer extends AdBasePageTransformer {
-    private static final float DEFAULT_MIN_ALPHA = 0.5f;
-    private float mMinAlpha = DEFAULT_MIN_ALPHA;
+
+    private static final float DEFAULT_MIN_ALPHA = 0.5f;//默认通明度
+
+    private float mMinAlpha = DEFAULT_MIN_ALPHA;//最小通明度
 
     public AdAlphaPageTransformer() {
     }
-
-    public AdAlphaPageTransformer(float minAlpha)
-    {
+    /**
+     * 构造方法
+     * @param minAlpha 通明度
+     */
+    public AdAlphaPageTransformer(float minAlpha) {
         this(minAlpha, AdNonPageTransformer.INSTANCE);
     }
 
+    /**
+     * 构造方法
+     * @param pageTransformer
+     */
     public AdAlphaPageTransformer(ViewPager.PageTransformer pageTransformer) {
         this(DEFAULT_MIN_ALPHA, pageTransformer);
     }
@@ -32,7 +40,6 @@ public class AdAlphaPageTransformer extends AdBasePageTransformer {
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public void pageTransform(View view, float position) {
         view.setScaleX( 0.999f);//hack
-
         if (position < -1) { // [-Infinity,-1)
             view.setAlpha(mMinAlpha);
         } else if (position <= 1) { // [-1,1]

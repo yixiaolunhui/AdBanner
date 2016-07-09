@@ -5,7 +5,7 @@ import android.os.Build;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 /**
- *
+ * RotateY
  * Created by zwl on 16/7/6.
  */
 public class AdRotateYTransformer extends AdBasePageTransformer {

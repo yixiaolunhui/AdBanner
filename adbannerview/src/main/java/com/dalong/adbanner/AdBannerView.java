@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -28,7 +29,7 @@ import java.util.List;
  * Created by zwl on 16/7/6.
  */
 
-public class AdBannerView<T> extends LinearLayout {
+public class AdBannerView<T> extends LinearLayout implements View.OnClickListener {
 
     public final  static  int DEFAULT_TIME=3000;
 
@@ -65,6 +66,15 @@ public class AdBannerView<T> extends LinearLayout {
     private boolean canTurn;//是否可以翻页
 
     private RelativeLayout mBaseadbannerLayout;
+    private View mLeftView,mRightView,mViewPagerView;
+    private AdOnItemClickListener onItemClickListener;//点击回调
+    private float oldX = 0;//按下的X坐标
+
+    private float newX = 0;//手指抬起X坐标
+
+    private static final float sens = 5;//当按下和抬起差距这么大时认为是点击事件
+
+    private boolean isCanScroll = true;//是否滚动
 
     public AdBannerView(Context context) {
         this(context,null);
@@ -119,6 +129,11 @@ public class AdBannerView<T> extends LinearLayout {
         mViewPager = (AdBannerViewPager) view.findViewById(R.id.adbanner);
         mIndicatorLayout = (ViewGroup) view.findViewById(R.id.adindicator);
         mBaseadbannerLayout = (RelativeLayout) view.findViewById(R.id.adbanner_base);
+        mLeftView = (View) view.findViewById(R.id.ad_left_view);
+        mRightView = (View) view.findViewById(R.id.ad_right_view);
+        mViewPagerView = (View) view.findViewById(R.id.ad_viewpager_view);
+        mLeftView.setOnClickListener(this);
+        mRightView.setOnClickListener(this);
         mBaseadbannerLayout.setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -141,6 +156,46 @@ public class AdBannerView<T> extends LinearLayout {
             @Override
             public void onPageScrollStateChanged(int state) {
 
+            }
+        });
+        mViewPagerView.setOnTouchListener(new OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                mViewPager.dispatchTouchEvent(motionEvent);
+                if(isCanScroll){
+                    if (onItemClickListener != null) {
+                        switch (motionEvent.getAction()) {
+                            case MotionEvent.ACTION_DOWN:
+                                oldX = motionEvent.getX();
+                                break;
+
+                            case MotionEvent.ACTION_UP:
+                                newX = motionEvent.getX();
+                                if (Math.abs(oldX - newX) < sens) {
+                                    onItemClickListener.onItemClick((getCurrentItem()));
+                                }
+                                oldX = 0;
+                                newX = 0;
+                                break;
+                        }
+                    }
+                    return true;
+                }
+                return false;
+            }
+        });
+        mLeftView.setOnTouchListener(new OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                mViewPager.dispatchTouchEvent(motionEvent);
+                return false;
+            }
+        });
+        mRightView.setOnTouchListener(new OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                mViewPager.dispatchTouchEvent(motionEvent);
+                return false;
             }
         });
         initViewPagerScroll();
@@ -221,6 +276,16 @@ public class AdBannerView<T> extends LinearLayout {
         return this;
     }
 
+    @Override
+    public void onClick(View view) {
+        int i = view.getId();
+        if (i == R.id.ad_left_view) {
+            setCurrentItem(mViewPager.getCurrentItem()-1);
+        } else if (i == R.id.ad_right_view) {
+            setCurrentItem(mViewPager.getCurrentItem()+1);
+        }
+    }
+
 
     /**
      * 指示器的位置
@@ -291,6 +356,7 @@ public class AdBannerView<T> extends LinearLayout {
      * @param isCanScroll
      */
     public void setCanScroll(boolean isCanScroll) {
+        this.isCanScroll=isCanScroll;
         mViewPager.setCanScroll(isCanScroll);
     }
 
@@ -355,10 +421,9 @@ public class AdBannerView<T> extends LinearLayout {
      */
     public AdBannerView setOnItemClickListener(AdOnItemClickListener onItemClickListener) {
         if (onItemClickListener == null) {
-            mViewPager.setOnItemClickListener(null);
             return this;
         }
-        mViewPager.setOnItemClickListener(onItemClickListener);
+        this.onItemClickListener=onItemClickListener;
         return this;
     }
 
@@ -394,7 +459,7 @@ public class AdBannerView<T> extends LinearLayout {
      * @return
      */
     public AdBannerView setPageTransformer(ViewPager.PageTransformer transformer) {
-        mViewPager.setPageTransformer(true, transformer);
+        mViewPager.setPageTransformer(false, transformer);
         return this;
     }
 
@@ -416,12 +481,26 @@ public class AdBannerView<T> extends LinearLayout {
         return super.dispatchTouchEvent(ev);
     }
 
+    /**
+     *  设置page之前的间隔
+     * @param margin
+     * @return
+     */
+
     public AdBannerView  setPageMargin(int margin){
         mViewPager.setPageMargin(margin);
         return this;
     }
+
+    /**
+     * 设置默认预加载页数
+     * @param mOffscreenPageLimit
+     * @return
+     */
     public AdBannerView  setOffscreenPageLimit(int mOffscreenPageLimit){
         mViewPager.setOffscreenPageLimit(mOffscreenPageLimit);
         return this;
     }
+
+
 }

@@ -5,7 +5,7 @@ import android.os.Build;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 /**
- *
+ * ScaleIn
  * Created by zwl on 16/7/6.
  */
 public class AdScaleInTransformer extends AdBasePageTransformer {

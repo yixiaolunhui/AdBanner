@@ -22,7 +22,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements AdOnItemClickListener, AdapterView.OnItemClickListener {
+public class MainActivity extends AppCompatActivity implements
+        AdOnItemClickListener, AdapterView.OnItemClickListener{
 
     private AdBannerView mAdBannerView;
 
@@ -76,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements AdOnItemClickList
             public ImageHolderView createHolder() {
                 return new ImageHolderView();
             }
-        },networkImages).setPageMargin(40).setOffscreenPageLimit(networkImages.size())
+        },networkImages).setPageMargin(0).setOffscreenPageLimit(networkImages.size())
                 .setPageIndicator(new int[]{R.mipmap.ic_page_indicator, R.mipmap.ic_page_indicator_focused})
                 .setOnItemClickListener(this);
 

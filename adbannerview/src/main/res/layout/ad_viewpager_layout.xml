@@ -1,29 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
+
     <RelativeLayout
         android:id="@+id/adbanner_base"
         android:clipChildren="false"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <View
+            android:id="@+id/ad_left_view"
+            android:layout_width="@dimen/ad_margin"
+            android:layout_height="match_parent"/>
+
         <com.dalong.adbanner.AdBannerViewPager
             android:id="@+id/adbanner"
             android:clipChildren="false"
-            android:layout_marginLeft="60dp"
-            android:layout_marginRight="60dp"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="@dimen/ad_margin"
+            android:layout_marginRight="@dimen/ad_margin"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
-        <LinearLayout
-            android:id="@+id/adindicator"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_margin="10dp"
-            android:layout_centerHorizontal="true"
-            android:orientation="horizontal" >
-        </LinearLayout>
+
+        <View
+            android:id="@+id/ad_right_view"
+            android:layout_alignParentRight="true"
+            android:layout_width="@dimen/ad_margin"
+            android:layout_height="match_parent"/>
+
     </RelativeLayout>
-</LinearLayout>
+
+    <View
+        android:id="@+id/ad_viewpager_view"
+        android:layout_marginLeft="@dimen/ad_margin"
+        android:layout_marginRight="@dimen/ad_margin"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <LinearLayout
+        android:id="@+id/adindicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="10dp"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal" >
+    </LinearLayout>
+
+</RelativeLayout>
