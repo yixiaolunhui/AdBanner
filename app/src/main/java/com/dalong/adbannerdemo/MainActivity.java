@@ -30,12 +30,12 @@ public class MainActivity extends AppCompatActivity implements
     private List<String> transformerList = new ArrayList<String>();
     private String[] images =
             {"http://img4.imgtn.bdimg.com/it/u=3990828539,4061622243&fm=21&gp=0.jpg",
-            "http://www.6188.com/upload_6188s/flashAll/s800/20130716/1373936192eF9wjM.jpg",
-            "http://d.3987.com/xingganmeinv_140814/007.jpg",
-            "http://img1d.xgo-img.com.cn/pics/1717/1716154.jpg",
-            "http://img1c.xgo-img.com.cn/pics/1545/a1544728.jpg",
-            "http://k.zol-img.com.cn/ideapad/5039/a5038432_s.jpg"
-    };
+                    "http://www.6188.com/upload_6188s/flashAll/s800/20130716/1373936192eF9wjM.jpg",
+                    "http://d.3987.com/xingganmeinv_140814/007.jpg",
+                    "http://img1d.xgo-img.com.cn/pics/1717/1716154.jpg",
+                    "http://img1c.xgo-img.com.cn/pics/1545/a1544728.jpg",
+                    "http://k.zol-img.com.cn/ideapad/5039/a5038432_s.jpg"
+            };
     private String[] transformers={
             "RotateDown",
             "RotateUp",
@@ -77,7 +77,8 @@ public class MainActivity extends AppCompatActivity implements
             public ImageHolderView createHolder() {
                 return new ImageHolderView();
             }
-        },networkImages).setPageMargin(0).setOffscreenPageLimit(networkImages.size())
+        },networkImages)
+                .setOffscreenPageLimit(4)
                 .setPageIndicator(new int[]{R.mipmap.ic_page_indicator, R.mipmap.ic_page_indicator_focused})
                 .setOnItemClickListener(this);
 
